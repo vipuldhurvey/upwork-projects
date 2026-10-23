@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A client-side CSV import and reporting dashboard demo by Bipul Kumar.">
+    <meta name="theme-color" content="#f4f6f5">
+    <title>Rowwise — CSV Insights Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to dashboard</a>
+    <div class="app-frame">
+      <aside class="sidebar" aria-label="Dashboard sidebar">
+        <a class="brand" href="#main"><span class="brand-mark" aria-hidden="true">R</span><span>rowwise<span>.</span></span></a>
+        <div class="workspace-select"><span class="workspace-avatar">NW</span><span><b>Northwind workspace</b><small>Sample account</small></span><span aria-hidden="true">⌄</span></div>
+        <p class="nav-label">WORKSPACE</p>
+        <nav class="side-nav" aria-label="Main navigation"><a class="side-link active" href="#main"><span aria-hidden="true">▦</span>Overview</a><a class="side-link" href="#data-table"><span aria-hidden="true">▤</span>Records</a><a class="side-link" href="#import"><span aria-hidden="true">⇧</span>Import data</a></nav>
+        <div class="sidebar-note"><span aria-hidden="true">✳</span><p><strong>Clear data, calmer decisions.</strong><br>Simple reporting for busy teams.</p></div>
+        <div class="sidebar-profile"><span class="profile-mark">BK</span><span><b>Bipul Kumar</b><small>Portfolio demo</small></span><span class="profile-menu" aria-hidden="true">•••</span></div>
+      </aside>
+
+      <main class="dashboard" id="main">
+        <header class="topbar"><div><span class="breadcrumb-muted">Workspace</span><span class="breadcrumb-sep">/</span><strong>Overview</strong></div><div class="topbar-actions"><span class="local-badge"><i aria-hidden="true"></i> Processed in your browser</span><span class="top-avatar" aria-hidden="true">BK</span></div></header>
+
+        <section class="welcome-row" aria-labelledby="page-title"><div><p class="eyebrow">DATA IMPORT &amp; REPORTING</p><h1 id="page-title">Your data,<br><em>clear at a glance.</em></h1><p>Bring in a CSV, review the rows, and spot the details that matter.</p></div><div class="welcome-actions"><button class="button button-quiet" id="load-sample" type="button">↻ &nbsp;Load sample data</button><button class="button button-primary" id="export-csv" type="button"><span aria-hidden="true">↓</span> Export filtered CSV</button></div></section>
+
+        <section class="metric-grid" aria-label="Order summary"><article class="metric-card"><div class="metric-top"><span>Total records</span><span class="metric-icon icon-records" aria-hidden="true">▤</span></div><strong id="metric-records">0</strong><small>Rows in the current dataset</small></article><article class="metric-card"><div class="metric-top"><span>Paid revenue</span><span class="metric-icon icon-revenue" aria-hidden="true">↗</span></div><strong id="metric-revenue">$0</strong><small>Paid orders only</small></article><article class="metric-card"><div class="metric-top"><span>Average order</span><span class="metric-icon icon-average" aria-hidden="true">⌁</span></div><strong id="metric-average">$0</strong><small>Across paid orders</small></article><article class="metric-card"><div class="metric-top"><span>Open orders</span><span class="metric-icon icon-open" aria-hidden="true">◷</span></div><strong id="metric-open">0</strong><small>Pending or processing</small></article></section>
+
+        <section class="insights-grid" aria-label="Dataset insights">
+          <article class="chart-card"><div class="card-heading"><div><p class="eyebrow">PAID REVENUE</p><h2>By category</h2></div><span class="chart-period">Current dataset <b>⌄</b></span></div><div class="chart-total"><strong id="chart-total">$0</strong><span>total paid revenue</span></div><div class="bar-chart" id="category-chart" aria-label="Paid revenue by category"></div><div class="chart-legend"><span><i></i>Revenue from paid orders</span><span>Sample report</span></div></article>
+          <article class="import-card" id="import"><div class="card-heading"><div><p class="eyebrow">ADD YOUR DATA</p><h2>Import a CSV</h2></div><span class="import-icon" aria-hidden="true">⇧</span></div><p class="import-copy">Drop a file here or choose one from your device. Your data is read locally in this browser.</p><input class="visually-hidden" id="csv-file" type="file" accept=".csv,text/csv"><div class="drop-zone" id="drop-zone"><span class="upload-symbol" aria-hidden="true">↑</span><strong>Drag a CSV file here</strong><small>or</small><button class="button button-quiet" id="browse-file" type="button">Choose CSV file</button><span class="file-hint">CSV files · up to 10 MB</span></div><p class="import-status" id="import-status" role="status" aria-live="polite">Using the included sample dataset.</p></article>
+        </section>
+
+        <section class="data-card" id="data-table" aria-labelledby="data-title"><div class="data-heading"><div><p class="eyebrow">DATA PREVIEW</p><h2 id="data-title">Recent orders <span id="row-count">0</span></h2><p class="data-subtitle" id="dataset-label">Sample ecommerce orders</p></div><div class="table-tools"><label class="search-field"><span aria-hidden="true">⌕</span><span class="visually-hidden">Search orders</span><input id="record-search" type="search" placeholder="Search orders"></label><label class="select-wrap"><span class="visually-hidden">Filter by status</span><select id="status-filter"><option value="all">All statuses</option><option value="Paid">Paid</option><option value="Pending">Pending</option><option value="Processing">Processing</option><option value="Refunded">Refunded</option></select></label></div></div><div class="table-scroller"><table><thead><tr><th scope="col">ORDER</th><th scope="col">CUSTOMER</th><th scope="col">PRODUCT</th><th scope="col">CATEGORY</th><th scope="col">AMOUNT</th><th scope="col">STATUS</th><th scope="col">DATE</th></tr></thead><tbody id="order-rows"></tbody></table></div><div class="empty-state" id="empty-state" hidden><span aria-hidden="true">⌕</span><strong>No matching rows</strong><p>Try a different search or status filter.</p></div><div class="table-footer"><span id="table-count">Showing 0 records</span><span>Amounts shown in USD · sample data is fictional</span></div></section>
+        <footer class="dashboard-footer"><span>Rowwise · A CSV dashboard portfolio project by Bipul Kumar</span><span>HTML · CSS · JavaScript</span></footer>
+      </main>
+    </div>
+  </body>
+</html>
